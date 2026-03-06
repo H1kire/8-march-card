@@ -37,28 +37,15 @@ bouquetBtn.addEventListener("click", () => {
 });
 
 // ======================
-// ПАРАЛЛАКС ФОН
+// ПАРАЛЛАКС ФОН (только десктоп)
 // ======================
 const bg = document.querySelector(".background");
 
-function updateBg(x, y) {
-    if(!bg) return;
-    const offsetX = (x / window.innerWidth - 0.5) * 30;
-    const offsetY = (y / window.innerHeight - 0.5) * 30;
-    bg.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-}
-
-// Десктоп: мышь
 document.addEventListener("mousemove", (e)=>{
-    if(window.innerWidth > 600) updateBg(e.clientX, e.clientY);
-});
-
-// Мобильные устройства: сенсор (наклон)
-document.addEventListener("deviceorientation", (e)=>{
-    if(window.innerWidth <= 600){
-        const x = e.gamma || 0; // наклон по горизонтали
-        const y = e.beta || 0;  // наклон по вертикали
-        bg.style.transform = `translate(${x*1.5}px, ${y*1.5}px)`;
+    if(window.innerWidth > 600){ // параллакс только на ПК
+        const offsetX = (e.clientX / window.innerWidth - 0.5) * 30;
+        const offsetY = (e.clientY / window.innerHeight - 0.5) * 30;
+        bg.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
     }
 });
 
