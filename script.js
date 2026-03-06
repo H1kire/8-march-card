@@ -82,54 +82,44 @@ setInterval(()=>{
 // ЛЕПЕСТКИ САКУРЫ
 // ======================
 
-function createPetal(){
+let petalsCount = 0;
+const maxPetals = 30; // максимум лепестков на экране
 
-    const petal = document.createElement("div")
+function createPetal() {
+    if(petalsCount >= maxPetals) return; // больше не создаём
+    petalsCount++;
 
-    petal.className = "petal"
-    petal.innerText = "🌸"
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.innerText = "🌸";
+    document.body.appendChild(petal);
 
-    document.body.appendChild(petal)
-
-    let posX = Math.random() * window.innerWidth
-    let posY = -40
-
-    const size = Math.random()*18 + 12
-    const fallSpeed = Math.random()*1.5 + 0.8
-    const sway = Math.random()*0.5 + 0.2
-
-    petal.style.fontSize = size + "px"
+    let posX = Math.random() * window.innerWidth;
+    let posY = -40;
+    const size = Math.random()*18 + 12;
+    const fallSpeed = Math.random()*1.5 + 0.8;
+    const sway = Math.random()*0.5 + 0.2;
+    petal.style.fontSize = size + "px";
 
     function update(){
-
-        posY += fallSpeed
-
-        posX += wind + Math.sin(posY*0.03)*sway
-
-        petal.style.left = posX + "px"
-        petal.style.top = posY + "px"
-
-        petal.style.transform = `rotate(${posY}deg)`
+        posY += fallSpeed;
+        posX += wind + Math.sin(posY*0.03)*sway;
+        petal.style.left = posX + "px";
+        petal.style.top = posY + "px";
+        petal.style.transform = `rotate(${posY}deg)`;
 
         if(posY < window.innerHeight + 50){
-
-            requestAnimationFrame(update)
-
-        }else{
-
-            petal.remove()
-
+            requestAnimationFrame(update);
+        } else {
+            petal.remove();
+            petalsCount--;
         }
-
     }
 
-    update()
-
+    update();
 }
 
-// создаём лепестки
-setInterval(createPetal,300)
-
+setInterval(createPetal, 400); // делаем чуть реже
 
 
 // ======================
