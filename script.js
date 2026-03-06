@@ -9,25 +9,19 @@ const text =
 радостью, теплом и улыбками.
 
 Пусть сбываются мечты,
-а счастье и любовь всегда будут рядом. 💖`
+а счастье и любовь всегда будут рядом. 💖`;
 
-let i = 0
+let i = 0;
 
 function typeWriter(){
-
     if(i < text.length){
-
-        document.getElementById("typing").innerHTML += text.charAt(i)
-
-        i++
-
-        setTimeout(typeWriter,40)
-
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter,40);
     }
-
 }
 
-typeWriter()
+typeWriter();
 
 // ======================
 // КНОПКА БУКЕТА
@@ -36,10 +30,7 @@ const bouquetBtn = document.getElementById("bouquetBtn");
 const bouquet = document.getElementById("bouquet");
 
 bouquetBtn.addEventListener("click", () => {
-    // убираем предыдущий эффект, если был
     bouquet.classList.remove("show");
-
-    // маленькая пауза для перезапуска анимации
     setTimeout(() => {
         bouquet.classList.add("show");
     }, 50);
@@ -48,45 +39,45 @@ bouquetBtn.addEventListener("click", () => {
 // ======================
 // ПАРАЛЛАКС ФОН
 // ======================
+const bg = document.querySelector(".background");
 
-const bg = document.querySelector(".background")
+function updateBg(x, y) {
+    if(!bg) return;
+    const offsetX = (x / window.innerWidth - 0.5) * 30;
+    const offsetY = (y / window.innerHeight - 0.5) * 30;
+    bg.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+}
 
-document.addEventListener("mousemove",(e)=>{
+// Десктоп: мышь
+document.addEventListener("mousemove", (e)=>{
+    if(window.innerWidth > 600) updateBg(e.clientX, e.clientY);
+});
 
-    if(!bg) return
-
-    const x = (e.clientX / window.innerWidth - 0.5) * 30
-    const y = (e.clientY / window.innerHeight - 0.5) * 30
-
-    bg.style.transform = `translate(${x}px, ${y}px)`
-
-})
-
-
+// Мобильные устройства: сенсор (наклон)
+document.addEventListener("deviceorientation", (e)=>{
+    if(window.innerWidth <= 600){
+        const x = e.gamma || 0; // наклон по горизонтали
+        const y = e.beta || 0;  // наклон по вертикали
+        bg.style.transform = `translate(${x*1.5}px, ${y*1.5}px)`;
+    }
+});
 
 // ======================
 // ВЕТЕР
 // ======================
-
-let wind = 0
-
+let wind = 0;
 setInterval(()=>{
-
-    wind = (Math.random()-0.5) * 0.8
-
-},3000)
-
-
+    wind = (Math.random()-0.5) * 0.8;
+},3000);
 
 // ======================
 // ЛЕПЕСТКИ САКУРЫ
 // ======================
-
 let petalsCount = 0;
-const maxPetals = 30; // максимум лепестков на экране
+const maxPetals = 30;
 
 function createPetal() {
-    if(petalsCount >= maxPetals) return; // больше не создаём
+    if(petalsCount >= maxPetals) return;
     petalsCount++;
 
     const petal = document.createElement("div");
@@ -115,59 +106,37 @@ function createPetal() {
             petalsCount--;
         }
     }
-
     update();
 }
 
-setInterval(createPetal, 400); // делаем чуть реже
-
+setInterval(createPetal, 400);
 
 // ======================
 // ЧАСТИЦЫ СВЕТА
 // ======================
-
 function createParticle(){
-
-    const p = document.createElement("div")
-
-    p.className="particle"
-
-    p.style.left=Math.random()*window.innerWidth+"px"
-    p.style.top=Math.random()*window.innerHeight+"px"
-
-    p.style.animationDuration=(Math.random()*5+5)+"s"
-
-    document.body.appendChild(p)
-
-    setTimeout(()=>p.remove(),6000)
-
+    const p = document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*window.innerWidth+"px";
+    p.style.top=Math.random()*window.innerHeight+"px";
+    p.style.animationDuration=(Math.random()*5+5)+"s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),6000);
 }
 
-setInterval(createParticle,500)
-
-
+setInterval(createParticle,500);
 
 // ======================
 // СЕРДЕЧКИ ПРИ КЛИКЕ
 // ======================
-
 document.addEventListener("click",(e)=>{
-
     for(let i=0;i<3;i++){
-
-        const heart=document.createElement("div")
-
-        heart.className="heart"
-
-        heart.innerText="💖"
-
-        heart.style.left=(e.clientX+(Math.random()*40-20))+"px"
-        heart.style.top=(e.clientY+(Math.random()*40-20))+"px"
-
-        document.body.appendChild(heart)
-
-        setTimeout(()=>heart.remove(),2000)
-
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerText="💖";
+        heart.style.left=(e.clientX+(Math.random()*40-20))+"px";
+        heart.style.top=(e.clientY+(Math.random()*40-20))+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),2000);
     }
-
-})
+});

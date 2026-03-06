@@ -138,14 +138,37 @@ button:hover{
 }
 
 /* ====================== */
-/* МОБИЛЬНЫЕ */
+/* МОБИЛЬНЫЕ ФИКСЫ */
 /* ====================== */
 @media(max-width:600px){
-    .card{
-        width:90%;
-        padding:25px;
+    body {
+        overflow: visible; /* чтобы частицы и лепестки не обрезались */
     }
-    #typing{
-        font-size:16px;
+
+    .background {
+        width: 100%;  /* растягиваем фон по ширине */
+        height: 100%; /* растягиваем фон по высоте */
+    }
+
+    .card {
+        position: relative; /* убираем центрирование через flex на телефоне */
+        top: auto;
+        transform: none;
+        margin: 40px auto; /* отступ сверху и снизу */
+        width: 90%;
+        padding: 25px;
+    }
+
+    #typing {
+        font-size: 16px;
+        min-height: auto; /* адаптируем высоту блока */
+    }
+
+    .bouquet {
+        font-size: 28px; /* уменьшаем размер букета на телефоне */
+    }
+
+    .petal, .particle, .heart {
+        position: fixed; /* фиксируем, чтобы не прыгали при скролле */
     }
 }
